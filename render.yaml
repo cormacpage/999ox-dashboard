@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: 999ox-dashboard-backend
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DISCORD_CLIENT_ID
+        value: 1409070086601445419
+      - key: DISCORD_CLIENT_SECRET
+        sync: false
+      - key: DISCORD_REDIRECT_URI
+        value: https://cormacpage.github.io/auth/discord/callback
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        value: https://cormacpage.github.io
+      - key: PORT
+        value: 10000
