@@ -1,20 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="999OX Dashboard - Professional Roblox Roleplay Community Dashboard"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="999OX Dashboard - Professional Roblox Roleplay Community">
+    <meta name="theme-color" content="#667eea">
     <title>999OX Dashboard</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+    
+    <!-- Prevent favicon and manifest errors -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>9</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+        
+        .title {
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+        
+        .subtitle {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            color: #666;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .description {
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .discord-btn {
+            background: #5865F2;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+        }
+        
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
+        }
+        
+        .discord-btn:active {
+            transform: translateY(0);
+        }
+        
+        .discord-icon {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .discord-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #5865F2;
+            border-radius: 50%;
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .loading {
+            display: none;
+            margin-top: 1rem;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #5865F2;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">999OX</h1>
+        <h2 class="subtitle">Dashboard</h2>
+        <p class="description">
+            Professional Roblox Roleplay Community
+        </p>
+        
+        <a href="https://nine99ox-dashboard-backend.onrender.com/auth/discord" class="discord-btn" onclick="showLoading()">
+            <div class="discord-icon"></div>
+            <span>Sign in with Discord</span>
+        </a>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Redirecting to Discord...</p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 999OX Community. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple loading function
+        function showLoading() {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.display = 'block';
+            }
+        }
+        
+        // Check authentication status when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple authentication check
+            fetch('https://nine99ox-dashboard-backend.onrender.com/api/auth-status', {
+                credentials: 'include'
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok');
+            })
+            .then(data => {
+                if (data.authenticated) {
+                    // Redirect to dashboard if already logged in
+                    window.location.href = 'https://nine99ox-dashboard-backend.onrender.com/dashboard';
+                }
+            })
+            .catch(error => {
+                console.log('Authentication check completed');
+            });
+        });
+    </script>
+</body>
 </html>
